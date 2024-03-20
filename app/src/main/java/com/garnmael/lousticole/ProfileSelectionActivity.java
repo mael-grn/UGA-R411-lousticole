@@ -11,15 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.garnmael.lousticole.db.DatabaseClient;
-import com.garnmael.lousticole.exception.NotPresentInDbException;
-import com.garnmael.lousticole.exception.UserIsAnonymousException;
 import com.garnmael.lousticole.model.User;
 
 public class ProfileSelectionActivity extends AppCompatActivity {
 
     private DatabaseClient mDb;
 
-    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,34 +30,24 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         validerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendForm();
+                onValidateButton();
             }
         });
     }
 
-    private void setCurrentUser(User user) {
-        if (user != null) {
-            this.currentUser = user;
-        }
-    }
-
-
     /**
      * fait un appel à la base de données pour sauvegarder un utilisateur
      * Si l'utilisateur est anonyme, alors il ne peut pas etre sauvegardé en BD : throw UserIsAnonymousException
-     * @param user l'utilisateur a inserer
      */
-    private void saveUser(User user) throws UserIsAnonymousException {
-        // verification si l'utilisateur est anonyme
-        if (user.getAnonyme()) {
-            throw new UserIsAnonymousException();
-        }
+    private void saveUser(String nom, String prenom) {
         /**
          * Création d'une classe asynchrone pour sauvegarder l'utilsiateur
          */
         class SaveUser extends AsyncTask<Void, Void, User> {
             @Override
             protected User doInBackground(Void... voids) {
+                //creer un utilisateur
+                User user = new User(nom, prenom);
                 // adding to database
                 long id = mDb.getAppDatabase()
                         .userDao()
@@ -76,7 +63,10 @@ public class ProfileSelectionActivity extends AppCompatActivity {
                 // Quand la tache est créée, on arrête l'activité AddTaskActivity (on l'enleve de la pile d'activités)
                 setResult(RESULT_OK);
                 finish();
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
+                intent.putExtra(DashboardActivity.USER_KEY, user);
+                startActivity(intent);
             }
         }
 
@@ -108,10 +98,18 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(User user) {
                 super.onPostExecute(user);
-                setCurrentUser(user);
+                if (user == null) {
+                    Toast.makeText(getApplicationContext(), "L'utilisateur existe pas", Toast.LENGTH_LONG).show();
+                    saveUser(nom, prenom);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "L'utilisateur existe déjà : recuperation du compte", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
+                    intent.putExtra(DashboardActivity.USER_KEY, user);
+                    startActivity(intent);
+                }
             }
         }
-
         //////////////////////////
         // IMPORTANT bien penser à executer la demande asynchrone
         // Création d'un objet de type GetTasks et execution de la demande asynchrone
@@ -122,27 +120,13 @@ public class ProfileSelectionActivity extends AppCompatActivity {
     /**
      * permet de verifier les champs saisis par l'utilisateur, et de lancer l'activitée appropriée
      */
-    private void sendForm() {
+    private void onValidateButton() {
         EditText prenomEditText = findViewById(R.id.profile_selection_prenom_editText);
         EditText nomEditText = findViewById(R.id.profile_selection_nom_editText);
 
         String prenom = prenomEditText.getText().toString();
         String nom = nomEditText.getText().toString();
 
-        System.out.println("maell,fmds,fmlqs");
-        //saveUser("garnier", "mael");
-        getUser("garnier", "mael");
-
-        /*
-        User user = new User(nom, prenom);
-
-            //saveUser(nom, prenom);
-
-            Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
-            intent.putExtra(DashboardActivity.USER_KEY, user);
-            startActivity(intent);
-
-
-         */
+        getUser(nom, prenom);
     }
 }

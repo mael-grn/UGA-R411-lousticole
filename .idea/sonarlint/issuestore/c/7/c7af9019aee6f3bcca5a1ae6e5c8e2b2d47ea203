@@ -1,0 +1,21 @@
+
+p
+java:S1604"(Make this anonymous inner class a lambda(’¨Îèıÿÿÿÿ8À»šÚå1J$b8b20d6a-2107-4141-afd6-3af3b004bfbc
+¤
+java:S1488\"\Immediately return this expression instead of assigning it to the temporary variable "user".(ş‡£ÿÿÿÿÿ8Â»šÚå1J$09781c26-75aa-42a4-8cd0-a0b9bf9d2f18
+y
+java:S1874."1Remove this use of "AsyncTask"; it is deprecated.(ÏçÌöüÿÿÿÿ8ª¼šÚå1J$48a95683-e08f-46c6-b376-14bc87453183
+’
+java:S1874="JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8¯¼šÚå1J$e8ac3dc8-5733-4b8c-b6b9-d24ba1f01cb0
+x
+java:S1874>"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8ÁÎ—Úå1J$f9d9d595-7b1f-46c5-a3aa-4760ef3a56a5
+w
+java:S1874L"/Remove this use of "execute"; it is deprecated.(£®çÇûÿÿÿÿ8·¼šÚå1J$8e0494f5-73c7-461f-9c50-3f922edb6543
+t
+java:S1874X"1Remove this use of "AsyncTask"; it is deprecated.(‡ĞÑş8¹¼šÚå1J$1f502d2c-7335-4d97-8083-954ff2a53403
+’
+java:S1874c"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8¼¼šÚå1J$0f92a0e8-53dd-4c84-b318-3c9e071a7d1e
+x
+java:S1874d"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8ĞÎ—Úå1J$059fa541-aa0b-414a-87a4-63a8b829afc4
+r
+java:S1874u"/Remove this use of "execute"; it is deprecated.(¢…èÀ8À¼šÚå1J$833f0471-2dfb-4e04-8407-60705088d1c1
