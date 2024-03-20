@@ -4,16 +4,26 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.garnmael.lousticole.db.DatabaseClient;
 
 /**
  * Classe permettant de reppresenter une entitée utilisateur.
  * Agit egalement comme une passerelle vers la db
  */
+
+@Entity(tableName = "user")
 public class User implements Parcelable {
     private String nom;
     private String prenom;
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
     private Boolean isAnonyme;
+
 
     /**
      * constructeur de la class user
@@ -67,7 +77,13 @@ public class User implements Parcelable {
         isAnonyme = anonyme;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;
@@ -99,28 +115,6 @@ public class User implements Parcelable {
         }
     }
 
-    /**
-     * permets de mettre à jour les informations en base de données
-     */
-    public void pushDb() {
-        //@todo mettre à jour les informations en base de données ici
-    }
-
-    /**
-     * permets de mettre à jour l'entité en recuperant les informations depuis la base de données
-     */
-    public void pullDb() {
-        //@todo mettre ici la recuperation des données
-    }
-
-    /**
-     * verifie si l'utilisateur existe déjà en bd
-     * @return
-     */
-    public boolean alreadyExistInDb() {
-        //@todo methode de verification en bd
-        return false;
-    }
 
     @Override
     public int describeContents() {

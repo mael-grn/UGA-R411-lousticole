@@ -3,19 +3,30 @@ package com.garnmael.lousticole;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.garnmael.lousticole.db.DatabaseClient;
+import com.garnmael.lousticole.exception.NotPresentInDbException;
+import com.garnmael.lousticole.exception.UserIsAnonymousException;
 import com.garnmael.lousticole.model.User;
 
 public class ProfileSelectionActivity extends AppCompatActivity {
+
+    private DatabaseClient mDb;
+
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profil_selection);
+
+        mDb = DatabaseClient.getInstance(getApplicationContext());
 
         Button validerButton = findViewById(R.id.profile_selection_valider_button);
 
@@ -25,6 +36,87 @@ public class ProfileSelectionActivity extends AppCompatActivity {
                 sendForm();
             }
         });
+    }
+
+    private void setCurrentUser(User user) {
+        if (user != null) {
+            this.currentUser = user;
+        }
+    }
+
+
+    /**
+     * fait un appel à la base de données pour sauvegarder un utilisateur
+     * Si l'utilisateur est anonyme, alors il ne peut pas etre sauvegardé en BD : throw UserIsAnonymousException
+     * @param user l'utilisateur a inserer
+     */
+    private void saveUser(User user) throws UserIsAnonymousException {
+        // verification si l'utilisateur est anonyme
+        if (user.getAnonyme()) {
+            throw new UserIsAnonymousException();
+        }
+        /**
+         * Création d'une classe asynchrone pour sauvegarder l'utilsiateur
+         */
+        class SaveUser extends AsyncTask<Void, Void, User> {
+            @Override
+            protected User doInBackground(Void... voids) {
+                // adding to database
+                long id = mDb.getAppDatabase()
+                        .userDao()
+                        .insert(user);
+                // mettre à jour l'id de l'utilisateur
+                // Nécessaire si on souhaite avoir accès à l'id plus tard dans l'activité
+                user.setId(id);
+                return user;
+            }
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+                // Quand la tache est créée, on arrête l'activité AddTaskActivity (on l'enleve de la pile d'activités)
+                setResult(RESULT_OK);
+                finish();
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        SaveUser su = new SaveUser();
+        su.execute();
+    }
+
+    /**
+     * fait un appel à la base de données pour recuperer un utilisateur
+     * Mets à jour la variable current user grace a la methode setUser
+     * @param nom le nom de l'utilisateur
+     * @param prenom le prenom de l'utilisateur
+     */
+    private void getUser(String nom, String prenom) {
+        ///////////////////////
+        // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité
+        class GetUser extends AsyncTask<Void, Void, User> {
+
+            @Override
+            protected User doInBackground(Void... voids) {
+                User user = mDb.getAppDatabase()
+                        .userDao()
+                        .getUser(nom, prenom);
+                return user;
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+                setCurrentUser(user);
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        // Création d'un objet de type GetTasks et execution de la demande asynchrone
+        GetUser gu = new GetUser();
+        gu.execute();
     }
 
     /**
@@ -37,15 +129,20 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         String prenom = prenomEditText.getText().toString();
         String nom = nomEditText.getText().toString();
 
+        System.out.println("maell,fmds,fmlqs");
+        //saveUser("garnier", "mael");
+        getUser("garnier", "mael");
+
+        /*
         User user = new User(nom, prenom);
 
-        if (user.alreadyExistInDb()) {
-            prenomEditText.setText("erreur");
-            nomEditText.setText("");
-        } else {
+            //saveUser(nom, prenom);
+
             Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
             intent.putExtra(DashboardActivity.USER_KEY, user);
             startActivity(intent);
-        }
+
+
+         */
     }
 }

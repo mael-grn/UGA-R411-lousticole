@@ -4,6 +4,8 @@ package com.garnmael.lousticole.db;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
+import com.garnmael.lousticole.model.User;
+
 @Database(entities = {User.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
