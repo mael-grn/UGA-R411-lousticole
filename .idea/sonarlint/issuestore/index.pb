@@ -47,3 +47,17 @@ w
 G.idea/sonarlint/issuestore/6/7/67c4a2991bab6760be1238f665e0a9663528667a,b\d\bda5430072f4f5fe19dc328f9917842aeddbc3e2
 Å
 Q.idea/sonarlint/securityhotspotstore/9/3/9314cae813b2ab1fc23d042593394fee395eb8a5,2\d\2db018bcb925dfb62b3e9a955e20c5cab7a5b9b7
+k
+;app/src/main/java/com/garnmael/lousticole/mathActivity.java,9\5\95c7b8144a0526baaa2f6f52561e00f90de7f56f
+s
+Capp/src/main/java/com/garnmael/lousticole/model/Multiplication.java,d\9\d98936b7ba134058be87d30f29ec0dd04a6face9
+x
+Happ/src/main/java/com/garnmael/lousticole/model/TableMultiplication.java,f\6\f6a5c97b9193ab1bdee99fed18a56c27c01d744a
+m
+=app/src/main/java/com/garnmael/lousticole/ResultActivity.java,0\8\089b56c792149a89bbbd7d1c10fb59367f464480
+z
+Japp/src/main/java/com/garnmael/lousticole/TableMultiplicationActivity.java,d\8\d8127f972594c069a3bd49a3d52dbca042e8019f
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+k
+;app/src/main/java/com/garnmael/lousticole/MathActivity.java,f\8\f8cbd46e8a05f4bbde82417b98eccadea3a61757

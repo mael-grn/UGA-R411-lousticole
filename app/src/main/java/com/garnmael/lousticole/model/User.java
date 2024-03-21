@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.garnmael.lousticole.db.DatabaseClient;
-
 /**
  * Classe permettant de reppresenter une entitée utilisateur.
  * Agit egalement comme une passerelle vers la db
@@ -69,7 +67,7 @@ public class User implements Parcelable {
         }
     };
 
-    public Boolean getAnonyme() {
+    public Boolean isAnonyme() {
         return isAnonyme;
     }
 

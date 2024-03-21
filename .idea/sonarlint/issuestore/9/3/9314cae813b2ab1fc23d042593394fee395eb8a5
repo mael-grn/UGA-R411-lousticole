@@ -1,8 +1,5 @@
 
-l
-java:S5411€"(Use a primitive boolean expression here.(ÆÌ®×8´¾µÖå1J$4c9493e4-9b74-4bc0-9f2b-844a1e07597b
-ˆ
-java:S3358€"DExtract this nested ternary operation into an independent statement.(ÆÌ®×8‹¿µÖå1J$02222888-2ab3-4e9d-820d-02a59cb69c95
-c
-java:S1128
-"FRemove this unused import 'com.garnmael.lousticole.db.DatabaseClient'.(À“žö8µí‰Øå1
+k
+java:S5411~"(Use a primitive boolean expression here.(ÆÌ®×8×À¥‰æ1J$dedd6914-b9a1-4d41-b307-995a1607f458
+‡
+java:S3358~"DExtract this nested ternary operation into an independent statement.(ÆÌ®×8€Á¥‰æ1J$8ed82dd9-e522-47dc-8c86-77e73b7afa7f

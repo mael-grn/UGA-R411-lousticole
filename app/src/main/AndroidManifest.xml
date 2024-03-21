@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".DashboardActivity"></activity>
+        <activity android:name=".MathActivity"></activity>
+        <activity android:name=".TableMultiplicationActivity"></activity>
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>

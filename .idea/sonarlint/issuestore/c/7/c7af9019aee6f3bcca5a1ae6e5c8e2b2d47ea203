@@ -1,21 +1,31 @@
 
 p
-java:S1604"(Make this anonymous inner class a lambda(’¨Îèıÿÿÿÿ8À»šÚå1J$b8b20d6a-2107-4141-afd6-3af3b004bfbc
-¤
-java:S1488\"\Immediately return this expression instead of assigning it to the temporary variable "user".(ş‡£ÿÿÿÿÿ8Â»šÚå1J$09781c26-75aa-42a4-8cd0-a0b9bf9d2f18
+java:S1604_"(Make this anonymous inner class a lambda(’¨Îèıÿÿÿÿ8©ŠŠæ1J$2552eb74-fc85-4d94-850b-6b6dcf55c214
+š
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¨Œşÿÿÿÿ8İ½ı‰æ1J$44624e82-bae5-4b97-bf2c-9a38e33004eb
+}
+java:S1874$":Remove this use of "getParcelableExtra"; it is deprecated.(ÇŠá8á½ı‰æ1J$3a87a266-63b6-4c35-bcca-3fe707bd1af2
+Ä
+java:S11864"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8½‹Šæ1J$94dd0c1a-3ffb-45eb-ad29-d5d0294c8908
+É
+java:S1186D"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8¾‹Šæ1J$1bdfd30e-9548-481a-972d-5ed3db54b7c5
+Ä
+java:S1186J"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8Â‹Šæ1J$92e707e2-a40f-4a0d-8f55-15c6d12041e5
+É
+java:S1186Z"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8Ã‹Šæ1J$4842aad3-4aca-4b83-9a57-206ee8052ece
 y
-java:S1874."1Remove this use of "AsyncTask"; it is deprecated.(ÏçÌöüÿÿÿÿ8ª¼šÚå1J$48a95683-e08f-46c6-b376-14bc87453183
+java:S1874o"1Remove this use of "AsyncTask"; it is deprecated.(ÏçÌöüÿÿÿÿ8Ë‹Šæ1J$beafa4df-db23-4697-afef-ec8638d10b78
 ’
-java:S1874="JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8¯¼šÚå1J$e8ac3dc8-5733-4b8c-b6b9-d24ba1f01cb0
+java:S1874~"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8‚¯ÿ‰æ1J$2c9d1682-229a-4dfc-a5dd-3c1d369296a7
 x
-java:S1874>"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8ÁÎ—Úå1J$f9d9d595-7b1f-46c5-a3aa-4760ef3a56a5
-w
-java:S1874L"/Remove this use of "execute"; it is deprecated.(£®çÇûÿÿÿÿ8·¼šÚå1J$8e0494f5-73c7-461f-9c50-3f922edb6543
-t
-java:S1874X"1Remove this use of "AsyncTask"; it is deprecated.(‡ĞÑş8¹¼šÚå1J$1f502d2c-7335-4d97-8083-954ff2a53403
-’
-java:S1874c"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8¼¼šÚå1J$0f92a0e8-53dd-4c84-b318-3c9e071a7d1e
+java:S1874"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8Ò‹Šæ1J$c1ee5b54-b128-4c9f-814f-0abd649b83d5
 x
-java:S1874d"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8ĞÎ—Úå1J$059fa541-aa0b-414a-87a4-63a8b829afc4
-r
-java:S1874u"/Remove this use of "execute"; it is deprecated.(¢…èÀ8À¼šÚå1J$833f0471-2dfb-4e04-8407-60705088d1c1
+java:S1874"/Remove this use of "execute"; it is deprecated.(£®çÇûÿÿÿÿ8Ù‹Šæ1J$ee9dec5c-bed3-41b6-8aae-edc80f2a38c1
+u
+java:S1874š"1Remove this use of "AsyncTask"; it is deprecated.(‡ĞÑş8Û‹Šæ1J$f27f3380-da73-45ce-b7e7-e5f835de272d
+“
+java:S1874¤"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8Œ¯ÿ‰æ1J$182a8b1d-79d2-4495-9ba3-22e15b241c92
+y
+java:S1874¥"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8Ş‹Šæ1J$b62bb973-9607-4ea2-899a-93331008cbc6
+s
+java:S1874·"/Remove this use of "execute"; it is deprecated.(¢…èÀ8â‹Šæ1J$1a355c7e-8d80-4f02-b703-73516b0ee9b8
