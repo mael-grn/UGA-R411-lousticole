@@ -31,6 +31,7 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
         Button validerButton = findViewById(R.id.profile_selection_valider_button);
+        Button resetButton = findViewById(R.id.profile_selection_reset_button);
 
         //on recupere l'objet utilisateur. Utile par exemple si le context d'utilisation est un changement de profil
         User user = getIntent().getParcelableExtra(USER_KEY);
@@ -96,6 +97,19 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onValidateButton();
+            }
+        });
+
+        /**
+         * supprimer la base de données pour reinitialiser l'appliation
+         */
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getApplicationContext().deleteDatabase("myLousticole");
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
     }

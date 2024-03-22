@@ -61,3 +61,9 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 k
 ;app/src/main/java/com/garnmael/lousticole/MathActivity.java,f\8\f8cbd46e8a05f4bbde82417b98eccadea3a61757
+i
+9app/src/main/java/com/garnmael/lousticole/model/note.java,9\c\9cfe03e8394c30b91d0c266fe53befc8f4aa0402
+i
+9app/src/main/java/com/garnmael/lousticole/model/Note.java,3\e\3eed7bb4ea9ce0cf801785d097bad6f409bf870f
+i
+9app/src/main/java/com/garnmael/lousticole/db/NoteDao.java,5\5\55ce833ab321b06e30378d8d45e7a184295fb4bd

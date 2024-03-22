@@ -17,6 +17,7 @@ import com.garnmael.lousticole.model.TableMultiplication;
 
 public class ResultActivity extends AppCompatActivity {
     public static final String RESULT_TABLE_KEY = "table_key";
+    public static final String CONTEXT_KEY = "context_key";
 
     /**
      * Permet de lancer une nouvelle page de table de mutliplication, pour une correction
@@ -74,6 +75,8 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+
+
         // On charge le XML pour créer l'arbre graphique
         setContentView(R.layout.result);
 
@@ -98,6 +101,10 @@ public class ResultActivity extends AppCompatActivity {
         TextView errorText = findViewById(R.id.result_second_textView);
         Button firstButton = findViewById(R.id.result_first_button);
         Button secondButton = findViewById(R.id.result_second_button);
+
+        String context = getIntent().getStringExtra(CONTEXT_KEY);
+
+
 
         //si l'utilisateur à réussi
         if (success) {
@@ -137,6 +144,10 @@ public class ResultActivity extends AppCompatActivity {
             errorText.setText(errorMessage);
             firstButton.setText("Corriger mes réponses");
             secondButton.setText("Choisir une autre table");
+
+            if (context.compareTo("note") == 0) {
+                firstButton.setEnabled(false);
+            }
 
             //mise à jour de l'action du premier bouton : corriger
             firstButton.setOnClickListener(new View.OnClickListener() {

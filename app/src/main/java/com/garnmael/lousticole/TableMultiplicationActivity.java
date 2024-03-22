@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.garnmael.lousticole.model.Note;
 import com.garnmael.lousticole.model.TableMultiplication;
+import com.garnmael.lousticole.model.User;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,8 @@ public class TableMultiplicationActivity extends AppCompatActivity{
     public static final String TABLE_KEY = "table_key";
 
     public static final String CONTEXT_KEY = "context_key";
+
+    public static final String USER_KEY = "user_key";
 
     private ArrayList<LinearLayout> multiplicationList = new ArrayList<>();
 
@@ -61,6 +65,17 @@ public class TableMultiplicationActivity extends AppCompatActivity{
                     Intent intent=new Intent();
                     intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMultiplication);
 
+                    if (tableMultiplication.checkAnswers()) {
+                        setResult(RESULT_OK,intent);
+                    } else {
+                        setResult(RESULT_CANCELED,intent);
+                    }
+                } else if (context.compareTo("note")==0) {
+                    Intent intent=new Intent();
+                    User user = getIntent().getParcelableExtra(USER_KEY);
+                    Note note = new Note("Mathématiques", tableMultiplication.getNbMultiplications() - tableMultiplication.getNbErrors(), user.getId());
+                    intent.putExtra(MathActivity.RESULT_TABLE_KEY, tableMultiplication);
+                    intent.putExtra(MathActivity.RESULT_NOTE_KEY, note);
                     if (tableMultiplication.checkAnswers()) {
                         setResult(RESULT_OK,intent);
                     } else {

@@ -52,6 +52,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, MathActivity.class);
+                intent.putExtra(MathActivity.USER_KEY, user);
                 startActivity(intent);
             }
         });
