@@ -14,10 +14,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.garnmael.lousticole.model.TableMultiplication;
+import com.garnmael.lousticole.model.User;
 
 public class ResultActivity extends AppCompatActivity {
     public static final String RESULT_TABLE_KEY = "table_key";
     public static final String CONTEXT_KEY = "context_key";
+
+    public static final String USER_KEY = "user_key";
+
 
     /**
      * Permet de lancer une nouvelle page de table de mutliplication, pour une correction
@@ -104,7 +108,7 @@ public class ResultActivity extends AppCompatActivity {
 
         String context = getIntent().getStringExtra(CONTEXT_KEY);
 
-
+        User user = getIntent().getParcelableExtra(USER_KEY);
 
         //si l'utilisateur à réussi
         if (success) {
@@ -120,6 +124,7 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(ResultActivity.this, MathActivity.class);
+                    intent.putExtra(MathActivity.USER_KEY, user);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -130,6 +135,7 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(ResultActivity.this, MathActivity.class);
+                    intent.putExtra(MathActivity.USER_KEY, user);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
@@ -156,6 +162,7 @@ public class ResultActivity extends AppCompatActivity {
                     Intent intent = new Intent(ResultActivity.this, TableMultiplicationActivity.class);
                     intent.putExtra(TableMultiplicationActivity.TABLE_KEY, tableMultiplication);
                     intent.putExtra(TableMultiplicationActivity.CONTEXT_KEY, "correction");
+                    intent.putExtra(TableMultiplicationActivity.USER_KEY, user);
 
                     activityResultLauncher.launch(intent);
                 }
@@ -166,6 +173,7 @@ public class ResultActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(ResultActivity.this, MathActivity.class);
+                    intent.putExtra(MathActivity.USER_KEY, user);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

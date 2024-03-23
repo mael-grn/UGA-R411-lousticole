@@ -67,3 +67,5 @@ i
 9app/src/main/java/com/garnmael/lousticole/model/Note.java,3\e\3eed7bb4ea9ce0cf801785d097bad6f409bf870f
 i
 9app/src/main/java/com/garnmael/lousticole/db/NoteDao.java,5\5\55ce833ab321b06e30378d8d45e7a184295fb4bd
+k
+;app/src/main/java/com/garnmael/lousticole/HelpActivity.java,b\b\bb1ad906bc278abad18487829d9a55d1c300b167

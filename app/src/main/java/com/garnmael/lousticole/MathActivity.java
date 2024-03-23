@@ -45,6 +45,7 @@ public class MathActivity extends AppCompatActivity {
                             Toast.makeText(MathActivity.this, text, duration).show();
                             //si l'utilisateur à perdu
                         } else {
+                            User user = getIntent().getParcelableExtra(USER_KEY);
                             CharSequence text = "PERDU";
                             int duration = Toast.LENGTH_SHORT;
                             Toast.makeText(MathActivity.this, text, duration).show();
@@ -56,12 +57,14 @@ public class MathActivity extends AppCompatActivity {
                             Intent intent = new Intent(MathActivity.this, ResultActivity.class);
                             intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMult);
                             intent.putExtra(ResultActivity.CONTEXT_KEY, context);
+                            intent.putExtra(ResultActivity.USER_KEY, user);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                             startActivity(intent);
                         }
                         //si l'utilisateur a gagné, on le redirige vers la page de resultat
                     } else if (result.getResultCode() == RESULT_OK) {
+                        User user = getIntent().getParcelableExtra(USER_KEY);
                         CharSequence text = "GAGNE";
                         int duration = Toast.LENGTH_SHORT;
                         Toast.makeText(MathActivity.this, text, duration).show();
@@ -72,6 +75,7 @@ public class MathActivity extends AppCompatActivity {
                         Intent intent = new Intent(MathActivity.this, ResultActivity.class);
                         intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMult);
                         intent.putExtra(ResultActivity.CONTEXT_KEY, context);
+                        intent.putExtra(ResultActivity.USER_KEY, user);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(intent);
@@ -91,7 +95,7 @@ public class MathActivity extends AppCompatActivity {
         Button entrainementButton = findViewById(R.id.tabMultLaunch_train_button);
         Button exerciceButton = findViewById(R.id.tabMultLaunch_graded_button);
         Button retourButton = findViewById(R.id.tabMultLaunch_back_button);
-
+        Button helpButton = findViewById(R.id.tabMultLaunch_help_button);
 
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(9);
@@ -111,6 +115,16 @@ public class MathActivity extends AppCompatActivity {
         }
         });
 
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MathActivity.this, HelpActivity.class);
+                intent.putExtra(HelpActivity.USER_KEY, user);
+                intent.putExtra(HelpActivity.CONTEXT_KEY, "math");
+                startActivity(intent);
+            }
+        });
 
         //lancement de l'activité de multiplication
         entrainementButton.setOnClickListener(new View.OnClickListener() {

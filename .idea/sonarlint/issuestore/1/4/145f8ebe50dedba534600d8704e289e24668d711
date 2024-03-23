@@ -1,15 +1,15 @@
 
 p
-java:S1604("(Make this anonymous inner class a lambda(¹·éÙüÿÿÿÿ8ò˜ïæ1J$c67968de-59fe-41d4-961f-18913d40ffc0
+java:S1604("(Make this anonymous inner class a lambda(¹·éÙüÿÿÿÿ8ò˜ïæ1J$d06d8024-fc16-42a8-86ed-9d2cdf6185b2
 p
-java:S16043"(Make this anonymous inner class a lambda(ë³’ÿÿÿÿÿ8ò˜ïæ1J$34a67bd2-db55-413f-b955-8dcceb19787d
+java:S16043"(Make this anonymous inner class a lambda(ë³’ÿÿÿÿÿ8ò˜ïæ1J$e0100c3c-d45d-44a1-823d-819a78a21e9e
 p
-java:S5411 "(Use a primitive boolean expression here.(æ‘ Üşÿÿÿÿ8ó˜ïæ1J$23da5cac-01dc-4a16-8f03-b8b096b2c7e5
+java:S5411 "(Use a primitive boolean expression here.(æ‘ Üşÿÿÿÿ8ó˜ïæ1J$703e9290-d4a0-45b8-adfb-8736971c3036
 p
-java:S5411,"(Use a primitive boolean expression here.(±üÉÄüÿÿÿÿ8ó˜ïæ1J$208084be-c360-4324-9699-6fe4ce4d348c
+java:S5411,"(Use a primitive boolean expression here.(±üÉÄüÿÿÿÿ8ó˜ïæ1J$545fa17e-af99-4ef5-b209-11a6ab0d7dc6
 …
-java:S1854"BRemove this useless assignment to local variable "francaisButton".(–€À8”™ïæ1J$17647a6e-8bee-4ec8-9847-d6c65456335b
+java:S1854"BRemove this useless assignment to local variable "francaisButton".(–€À8”™ïæ1J$ebb9e282-25b9-41f9-8d8e-b44f2cfb6d45
 }
-java:S1874":Remove this use of "getParcelableExtra"; it is deprecated.(ÇŠá8–™ïæ1J$9f535542-2b05-4732-acbb-8cb0dca974af
+java:S1874":Remove this use of "getParcelableExtra"; it is deprecated.(ÇŠá8–™ïæ1J$89b22d02-601c-4108-8512-f803dc4de0dd
 v
-java:S1481"3Remove this unused "francaisButton" local variable.(–€À8—™ïæ1J$bdfb347f-2efe-443a-b3d7-5f5103349c99
+java:S1481"3Remove this unused "francaisButton" local variable.(–€À8—™ïæ1J$9c2bb9d9-3bf8-4bf3-a658-5a349c83e66c
