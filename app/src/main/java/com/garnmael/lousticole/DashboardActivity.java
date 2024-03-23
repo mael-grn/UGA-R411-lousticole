@@ -48,6 +48,15 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
+        notesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, NoteActivity.class);
+                intent.putExtra(NoteActivity.USER_KEY, user);
+                startActivity(intent);
+            }
+        });
+
         mathsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

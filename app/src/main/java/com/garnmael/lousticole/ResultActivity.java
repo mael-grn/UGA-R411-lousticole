@@ -1,6 +1,7 @@
 package com.garnmael.lousticole;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +14,21 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.garnmael.lousticole.db.DatabaseClient;
+import com.garnmael.lousticole.model.Note;
 import com.garnmael.lousticole.model.TableMultiplication;
 import com.garnmael.lousticole.model.User;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
     public static final String RESULT_TABLE_KEY = "table_key";
     public static final String CONTEXT_KEY = "context_key";
+    private DatabaseClient mDb;
 
     public static final String USER_KEY = "user_key";
 
@@ -78,11 +88,13 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
+        mDb = DatabaseClient.getInstance(getApplicationContext());
 
         // On charge le XML pour créer l'arbre graphique
         setContentView(R.layout.result);
+        String context = getIntent().getStringExtra(CONTEXT_KEY);
+        User user = getIntent().getParcelableExtra(USER_KEY);
+
 
         //on initialise tableMultiplication à partir de l'intent
         TableMultiplication tableMultiplication = getIntent().getParcelableExtra(RESULT_TABLE_KEY);
@@ -91,6 +103,12 @@ public class ResultActivity extends AppCompatActivity {
 
                 //On mets à jour les données de l'interface
         updateUserInterface(success, tableMultiplication);
+
+
+        if (context.compareTo("note") == 0) {
+            long note = tableMultiplication.getNbMultiplications() - tableMultiplication.getNbErrors();
+            saveNote(note, user.getId());
+        }
     }
 
     /**
@@ -179,5 +197,42 @@ public class ResultActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void saveNote(long userNote, long userId) {
+        /**
+         * Création d'une classe asynchrone pour sauvegarder l'utilsiateur
+         */
+        class SaveNote extends AsyncTask<Void, Void, Note> {
+            @Override
+            protected Note doInBackground(Void... voids) {
+                // Obtenir une instance de Calendar pour la date actuelle
+                Calendar calendar = Calendar.getInstance();
+
+                // Formater la date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+                String dateStr = dateFormat.format(calendar.getTime());
+                //creer un utilisateur
+                Note note = new Note("mathématiques", userNote, userId, dateStr);
+                // adding to database
+                long id = mDb.getAppDatabase()
+                        .noteDao()
+                        .insert(note);
+                // mettre à jour l'id de l'utilisateur
+                // Nécessaire si on souhaite avoir accès à l'id plus tard dans l'activité
+                note.setId(id);
+                return note;
+            }
+            @Override
+            protected void onPostExecute(Note note) {
+                super.onPostExecute(note);
+
+                Toast.makeText(getApplicationContext(), "Note sauvegardée", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        //////////////////////////
+        // IMPORTANT bien penser à executer la demande asynchrone
+        SaveNote sn = new SaveNote();
+        sn.execute();
     }
 }

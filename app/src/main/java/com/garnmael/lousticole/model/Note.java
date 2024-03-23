@@ -18,11 +18,21 @@ public class Note implements Parcelable {
 
     private long idUser;
 
+    private String date;
+
+    public Note(String exercice, long note, long idUser, String date) {
+        this.exercice = exercice;
+        this.note = note;
+        this.idUser = idUser;
+        this.date = date;
+    }
 
     protected Note(Parcel in) {
+        id = in.readLong();
         exercice = in.readString();
         note = in.readLong();
         idUser = in.readLong();
+        date = in.readString();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -49,6 +59,14 @@ public class Note implements Parcelable {
         return note;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public void setNote(long note) {
         this.note = note;
     }
@@ -70,11 +88,6 @@ public class Note implements Parcelable {
         this.id = id;
     }
 
-    public Note(String exercice, long note, long idUser) {
-        this.exercice = exercice;
-        this.note = note;
-        this.idUser = idUser;
-    }
 
     @Override
     public int describeContents() {
@@ -83,8 +96,10 @@ public class Note implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(id);
         parcel.writeString(exercice);
         parcel.writeLong(note);
         parcel.writeLong(idUser);
+        parcel.writeString(date);
     }
 }

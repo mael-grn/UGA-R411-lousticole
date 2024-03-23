@@ -20,8 +20,6 @@ public class MathActivity extends AppCompatActivity {
 
     public static final String RESULT_TABLE_KEY = "result_table_key";
 
-    public static final String RESULT_NOTE_KEY = "result_note_key";
-
     public static final String USER_KEY = "user_key";
 
     private String context;

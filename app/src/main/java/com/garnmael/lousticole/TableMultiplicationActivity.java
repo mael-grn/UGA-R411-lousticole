@@ -73,9 +73,7 @@ public class TableMultiplicationActivity extends AppCompatActivity{
                 } else if (context.compareTo("note")==0) {
                     Intent intent=new Intent();
                     User user = getIntent().getParcelableExtra(USER_KEY);
-                    Note note = new Note("Mathématiques", tableMultiplication.getNbMultiplications() - tableMultiplication.getNbErrors(), user.getId());
                     intent.putExtra(MathActivity.RESULT_TABLE_KEY, tableMultiplication);
-                    intent.putExtra(MathActivity.RESULT_NOTE_KEY, note);
                     if (tableMultiplication.checkAnswers()) {
                         setResult(RESULT_OK,intent);
                     } else {
@@ -133,11 +131,12 @@ public class TableMultiplicationActivity extends AppCompatActivity{
             EditText reponseEdit = multiplicationList.get(i).findViewById(R.id.answer_sample);
             String reponse = String.valueOf(reponseEdit.getText());
             try {
-                table.getMultiplication(i).repondre(Integer.parseInt(reponse));
+                if (!reponse.isEmpty()) {
+                    table.getMultiplication(i).repondre(Integer.parseInt(reponse));
+                }
             } catch (Exception e) {
                 table.getMultiplication(i).repondre(-1);
             }
-
         }
     }
 

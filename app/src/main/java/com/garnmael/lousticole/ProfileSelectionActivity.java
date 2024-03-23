@@ -119,9 +119,6 @@ public class ProfileSelectionActivity extends AppCompatActivity {
      * Si l'utilisateur est anonyme, alors il ne peut pas etre sauvegardé en BD : throw UserIsAnonymousException
      */
     private void saveUser(String nom, String prenom) {
-        /**
-         * Création d'une classe asynchrone pour sauvegarder l'utilsiateur
-         */
         class SaveUser extends AsyncTask<Void, Void, User> {
             @Override
             protected User doInBackground(Void... voids) {

@@ -20,11 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DashboardActivity"></activity>
-        <activity android:name=".MathActivity"></activity>
-        <activity android:name=".TableMultiplicationActivity"></activity>
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".DashboardActivity"/>
+        <activity android:name=".MathActivity"/>
+        <activity android:name=".TableMultiplicationActivity"/>
+        <activity android:name=".ResultActivity"/>
+        <activity android:name=".HelpActivity"/>
+        <activity android:name=".NoteActivity"/>
 
     </application>
 
