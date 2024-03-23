@@ -7,45 +7,39 @@
     android:padding="50dp">
 
     <TextView
-        android:id="@+id/tabMult_textView"
+        android:id="@+id/select_user_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Completez votre table de multiplication :"
-        android:textColor="@color/black"
-        android:textSize="30dp"
+        android:textSize="30sp"
+        android:text="Selectionnez un profil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/select_user_scrollview"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:gravity="top"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/tabMult_validate_button"
-        app:layout_constraintTop_toBottomOf="@+id/tabMult_textView"
-        tools:layout_editor_absoluteX="50dp">
+        app:layout_constraintBottom_toTopOf="@+id/select_user_retour_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_user_textView">
 
         <LinearLayout
-            android:id="@+id/tabMult_table_container"
+            android:id="@+id/select_user_container_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
-            >
-
-
-        </LinearLayout>
-
+            android:orientation="vertical"/>
     </ScrollView>
 
     <Button
-        android:id="@+id/tabMult_validate_button"
-        android:layout_width="300dp"
+        android:id="@+id/select_user_retour_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valider"
+        android:backgroundTint="@color/red"
+        android:text="Retour"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

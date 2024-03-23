@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp">
+
+    <TextView
+        android:id="@+id/tabMultLaunch_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mathématiques"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tabMultLaunch_rules_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Sélectionnez une table et un opérateur:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_textview" />
+
+    <NumberPicker
+        android:id="@+id/tabMultLaunch_number_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_rules_textview" />
+
+    <RadioGroup
+        android:id="@+id/tabMultLaunch_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_rules_textview">
+
+        <RadioButton
+            android:id="@+id/tabMultLaunch_radioAddition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Addition" />
+
+        <RadioButton
+            android:id="@+id/tabMultLaunch_radioSoustraction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Soustraction" />
+
+        <RadioButton
+            android:id="@+id/tabMultLaunch_radioMultiplication"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Multiplication" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/tabMultLaunch_train_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Entrainement"
+        app:layout_constraintBottom_toTopOf="@id/tabMultLaunch_back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_number_picker" />
+
+    <Button
+        android:id="@+id/tabMultLaunch_graded_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="exercice noté"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_train_button" />
+
+    <Button
+        android:id="@+id/tabMultLaunch_help_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="aide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabMultLaunch_graded_button" />
+
+    <Button
+        android:id="@+id/tabMultLaunch_back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="retour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

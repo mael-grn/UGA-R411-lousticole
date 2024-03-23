@@ -32,6 +32,7 @@ public class NoteActivity extends AppCompatActivity {
         User user = getIntent().getParcelableExtra(USER_KEY);
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
+
         retour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,12 +66,10 @@ public class NoteActivity extends AppCompatActivity {
                 super.onPostExecute(notes);
                 LinearLayout notesContainer = findViewById(R.id.grades_notes_container);
                 if (notes == null || notes.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Aucune notes récupérées", Toast.LENGTH_LONG).show();
                     TextView message = new TextView(getApplicationContext());
                     message.setText("Vous n'avez aucune notes pour le moment");
                     notesContainer.addView(message);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Les notes ont bien été récupérées", Toast.LENGTH_LONG).show();
                     for (int i=0; i<notes.size(); i++) {
                         String text = notes.get(i).getExercice() + " - " + notes.get(i).getDate() + " : " + notes.get(i).getNote() + "/10";
                         TextView message = new TextView(getApplicationContext());

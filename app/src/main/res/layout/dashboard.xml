@@ -2,17 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="50dp">
 
     <TextView
         android:id="@+id/dashboard_welcome_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textSize="30sp"
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
-        android:layout_marginTop="100dp"
-        android:text="Bienvenu sur votre tableau de bord !"
+        android:text="Tableau de bord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,17 +21,18 @@
         android:id="@+id/dashboard_description_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Commencez par selectionnez l'une des options ci-dessous :"
-        android:layout_marginTop="20px"
         android:layout_marginLeft="50px"
+        android:layout_marginTop="20px"
         android:layout_marginRight="50px"
+        android:text="Commencez par selectionnez l'une des options ci-dessous :"
+        app:layout_constraintBottom_toTopOf="@+id/dashboard_grades_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dashboard_welcome_textView" />
 
     <Button
         android:id="@+id/dashboard_grades_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mes notes"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +42,7 @@
 
     <Button
         android:id="@+id/dashboard_math_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mathématiques"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +51,7 @@
 
     <Button
         android:id="@+id/dashboard_francais_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Français"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +60,11 @@
 
     <Button
         android:id="@+id/dashboard_settings_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mon profil"
+        android:text="Déconnexion"
+        android:backgroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashboard_francais_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -18,6 +19,7 @@ public class User implements Parcelable {
     private String prenom;
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private long id;
 
     private Boolean isAnonyme;
@@ -48,9 +50,11 @@ public class User implements Parcelable {
         this.isAnonyme = true;
     }
 
+
     protected User(Parcel in) {
         nom = in.readString();
         prenom = in.readString();
+        id = in.readLong();
         byte tmpIsAnonyme = in.readByte();
         isAnonyme = tmpIsAnonyme == 0 ? null : tmpIsAnonyme == 1;
     }
@@ -123,6 +127,7 @@ public class User implements Parcelable {
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeString(nom);
         parcel.writeString(prenom);
+        parcel.writeLong(id);
         parcel.writeByte((byte) (isAnonyme == null ? 0 : isAnonyme ? 1 : 2));
     }
 }

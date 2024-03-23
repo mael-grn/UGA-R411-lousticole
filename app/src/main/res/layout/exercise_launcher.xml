@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="50dp">
 
     <TextView
         android:id="@+id/ex_launcher_welcome_textView"
@@ -10,33 +11,26 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:layout_marginTop="100dp"
-        android:text="un_exercice"
+        android:text="un exercice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ex_launcher_retour_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Retour"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/ex_launcher_entrainement_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Entrainement"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ex_launcher_retour_button" />
+        app:layout_constraintTop_toBottomOf="@+id/ex_launcher_welcome_textView"
+        app:layout_constraintBottom_toTopOf="@id/ex_launcher_retour_button"/>
 
     <Button
         android:id="@+id/ex_launcher_note_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Exercice noté"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,10 +39,22 @@
 
     <Button
         android:id="@+id/ex_launcher_help_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
         android:text="Aide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ex_launcher_note_button" />
+
+    <Button
+        android:id="@+id/ex_launcher_retour_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:text="Retour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ex_launcher_help_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,3 +71,11 @@ k
 ;app/src/main/java/com/garnmael/lousticole/HelpActivity.java,b\b\bb1ad906bc278abad18487829d9a55d1c300b167
 k
 ;app/src/main/java/com/garnmael/lousticole/NoteActivity.java,7\6\765b6b75f3c5434ce50d464d27065b3ffe74b315
+q
+Aapp/src/main/java/com/garnmael/lousticole/SelectUserActivity.java,f\a\fa265207e664cfd4d3bafd559c590aaf817edd5e
+s
+Capp/src/main/java/com/garnmael/lousticole/model/TableOperation.java,1\0\104d290760fc5950b1fda028d494bd87d90c8378
+n
+>app/src/main/java/com/garnmael/lousticole/model/Operation.java,8\2\82d0e25101fe54a1f4b8b660aaa2efbdaae984fb
+u
+Eapp/src/main/java/com/garnmael/lousticole/TableOperationActivity.java,7\6\7660cafdd4cce2500053e9f826ab6c76b63a4df5

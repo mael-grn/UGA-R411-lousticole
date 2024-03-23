@@ -9,17 +9,15 @@
         android:id="@+id/question_sample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:textSize="25dp" />
 
     <EditText
         android:id="@+id/answer_sample"
-        android:layout_width="50dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
-        android:ems="10"
         android:hint="?"
-        android:inputType="number"
+        android:inputType="numberSigned"
         android:textAlignment="center"
         android:textSize="25dp" />
 

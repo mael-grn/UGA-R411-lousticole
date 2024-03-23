@@ -1,5 +1,9 @@
 package com.garnmael.lousticole;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +25,24 @@ public class ProfileSelectionActivity extends AppCompatActivity {
 
     public static final String USER_KEY = "user_key";
 
+    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() != RESULT_CANCELED) {
+                        Intent resultIntent = result.getData();
+                        User user = resultIntent.getParcelableExtra(USER_KEY);
+                        Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
+                        intent.putExtra(DashboardActivity.USER_KEY, user);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -32,20 +53,11 @@ public class ProfileSelectionActivity extends AppCompatActivity {
 
         Button validerButton = findViewById(R.id.profile_selection_valider_button);
         Button resetButton = findViewById(R.id.profile_selection_reset_button);
-
-        //on recupere l'objet utilisateur. Utile par exemple si le context d'utilisation est un changement de profil
-        User user = getIntent().getParcelableExtra(USER_KEY);
+        Button selectUserButton = findViewById(R.id.profile_selection_select_user_button);
 
         //edit text de saisie utilisateur
         EditText prenomEditText = findViewById(R.id.profile_selection_prenom_editText);
         EditText nomEditText = findViewById(R.id.profile_selection_nom_editText);
-
-        //cas ou l'utilisateur souhaite changer de nom/prenom
-        if (user != null) {
-            prenomEditText.setText(user.getPrenom());
-            nomEditText.setText(user.getNom());
-            validerButton.setText("Changer mon prenom / nom");
-        }
 
         //on change le libelle des boutons en fonction de si l'utilisateur à rentré du texte ou non
         prenomEditText.addTextChangedListener(new TextWatcher() {
@@ -55,12 +67,7 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!nomEditText.getText().toString().isEmpty() && !prenomEditText.getText().toString().isEmpty()) {
-                    //si l'utilisateur se connecte, affichage du message approprié en fonction du contexte
-                    if (user != null) {
-                        validerButton.setText("Se connecter avec un autre compte");
-                    } else {
-                        validerButton.setText("Se connecter / S'enregistrer");
-                    }
+                    validerButton.setText("Se connecter / S'enregistrer");
                 } else {
                     validerButton.setText("Continer en anonyme");
                 }
@@ -77,12 +84,7 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!nomEditText.getText().toString().isEmpty() && !prenomEditText.getText().toString().isEmpty()) {
-                    //si l'utilisateur se connecte, affichage du message approprié en fonction du contexte
-                    if (user != null) {
-                        validerButton.setText("Se connecter avec un autre compte");
-                    } else {
-                        validerButton.setText("Se connecter / S'enregistrer");
-                    }
+                    validerButton.setText("Se connecter / S'enregistrer");
                 } else {
                     validerButton.setText("Continer en anonyme");
                 }
@@ -100,9 +102,7 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         * supprimer la base de données pour reinitialiser l'appliation
-         */
+
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +110,15 @@ public class ProfileSelectionActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Application réinitialisée", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        selectUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileSelectionActivity.this, SelectUserActivity.class);
+                activityResultLauncher.launch(intent);
             }
         });
     }
@@ -141,8 +150,10 @@ public class ProfileSelectionActivity extends AppCompatActivity {
                 finish();
 
                 Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra(DashboardActivity.USER_KEY, user);
                 startActivity(intent);
+                finish();
             }
         }
 
@@ -175,15 +186,16 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             protected void onPostExecute(User user) {
                 super.onPostExecute(user);
                 if (user == null) {
-                    Toast.makeText(getApplicationContext(), "L'utilisateur existe pas", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Création du compte", Toast.LENGTH_LONG).show();
                     saveUser(nom, prenom);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "L'utilisateur existe déjà : recuperation du compte", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Recuperation du compte", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
                     intent.putExtra(DashboardActivity.USER_KEY, user);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finish();
                 }
             }
         }
@@ -207,11 +219,12 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         if (!nom.isEmpty() && !prenom.isEmpty()) {
             getUser(nom, prenom);
         } else {
-            Toast.makeText(getApplicationContext(), "L'utilisateur est anonyme", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Utilisateur anonyme", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
             intent.putExtra(DashboardActivity.USER_KEY, new User());
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
     }
 }

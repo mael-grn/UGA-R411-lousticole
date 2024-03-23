@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -13,7 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.garnmael.lousticole.model.TableMultiplication;
+import com.garnmael.lousticole.model.TableOperation;
 import com.garnmael.lousticole.model.User;
 
 public class MathActivity extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class MathActivity extends AppCompatActivity {
 
     //la table de multiplication selectionnée
     private int tableSelected;
+
+    private char operateurSelected = '+';
 
     private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -44,12 +48,9 @@ public class MathActivity extends AppCompatActivity {
                             //si l'utilisateur à perdu
                         } else {
                             User user = getIntent().getParcelableExtra(USER_KEY);
-                            CharSequence text = "PERDU";
-                            int duration = Toast.LENGTH_SHORT;
-                            Toast.makeText(MathActivity.this, text, duration).show();
 
                             Intent resultIntent = result.getData();
-                            TableMultiplication tableMult = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
+                            TableOperation tableMult = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
 
                             //on le redirige vers la page appriprié
                             Intent intent = new Intent(MathActivity.this, ResultActivity.class);
@@ -63,12 +64,9 @@ public class MathActivity extends AppCompatActivity {
                         //si l'utilisateur a gagné, on le redirige vers la page de resultat
                     } else if (result.getResultCode() == RESULT_OK) {
                         User user = getIntent().getParcelableExtra(USER_KEY);
-                        CharSequence text = "GAGNE";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast.makeText(MathActivity.this, text, duration).show();
 
                         Intent resultIntent = result.getData();
-                        TableMultiplication tableMult = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
+                        TableOperation tableMult = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
 
                         Intent intent = new Intent(MathActivity.this, ResultActivity.class);
                         intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMult);
@@ -87,13 +85,14 @@ public class MathActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // On charge le XML pour créer l'arbre graphique
-        setContentView(R.layout.table_multiplication_launcher);
+        setContentView(R.layout.table_operation_launcher);
 
         NumberPicker numberPicker = findViewById(R.id.tabMultLaunch_number_picker);
         Button entrainementButton = findViewById(R.id.tabMultLaunch_train_button);
         Button exerciceButton = findViewById(R.id.tabMultLaunch_graded_button);
         Button retourButton = findViewById(R.id.tabMultLaunch_back_button);
         Button helpButton = findViewById(R.id.tabMultLaunch_help_button);
+        RadioGroup radioGroup = findViewById(R.id.tabMultLaunch_radioGroup);
 
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(9);
@@ -130,10 +129,20 @@ public class MathActivity extends AppCompatActivity {
             public void onClick(View view) {
                 context = "entrainement";
                 tableSelected = numberPicker.getValue();
-                Intent intent = new Intent(MathActivity.this, TableMultiplicationActivity.class);
-                TableMultiplication tableMultiplication = new TableMultiplication(tableSelected);
-                intent.putExtra(TableMultiplicationActivity.TABLE_KEY, tableMultiplication);
-                intent.putExtra(TableMultiplicationActivity.CONTEXT_KEY, context);
+                RadioButton selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                if (selectedRadioButton.getText().toString().compareTo("Addition")==0) {
+                    operateurSelected = '+';
+                } else if (selectedRadioButton.getText().toString().compareTo("Soustraction")==0) {
+                    operateurSelected = '-';
+                } else if (selectedRadioButton.getText().toString().compareTo("Multiplication")==0) {
+                    operateurSelected = '*';
+                } else if (selectedRadioButton.getText().toString().compareTo("Division")==0) {
+                    operateurSelected = '/';
+                }
+                Intent intent = new Intent(MathActivity.this, TableOperationActivity.class);
+                TableOperation tableOperation = new TableOperation(tableSelected, operateurSelected);
+                intent.putExtra(TableOperationActivity.TABLE_KEY, tableOperation);
+                intent.putExtra(TableOperationActivity.CONTEXT_KEY, context);
                 activityResultLauncher.launch(intent);
             }
         });
@@ -144,12 +153,20 @@ public class MathActivity extends AppCompatActivity {
             public void onClick(View view) {
                 context = "note";
                 tableSelected = numberPicker.getValue();
-                Intent intent = new Intent(MathActivity.this, TableMultiplicationActivity.class);
-                TableMultiplication tableMultiplication = new TableMultiplication(tableSelected);
-                intent.putExtra(TableMultiplicationActivity.TABLE_KEY, tableMultiplication);
+                RadioButton selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                if (selectedRadioButton.getText().toString().compareTo("Addition")==0) {
+                    operateurSelected = '+';
+                } else if (selectedRadioButton.getText().toString().compareTo("Soustraction")==0) {
+                    operateurSelected = '-';
+                } else if (selectedRadioButton.getText().toString().compareTo("Multiplication")==0) {
+                    operateurSelected = '*';
+                }
+                Intent intent = new Intent(MathActivity.this, TableOperationActivity.class);
+                TableOperation tableOperation = new TableOperation(tableSelected, operateurSelected);
+                intent.putExtra(TableOperationActivity.TABLE_KEY, tableOperation);
                 User user = getIntent().getParcelableExtra(USER_KEY);
-                intent.putExtra(TableMultiplicationActivity.CONTEXT_KEY, context);
-                intent.putExtra(TableMultiplicationActivity.USER_KEY, user);
+                intent.putExtra(TableOperationActivity.CONTEXT_KEY, context);
+                intent.putExtra(TableOperationActivity.USER_KEY, user);
                 activityResultLauncher.launch(intent);
             }
         });

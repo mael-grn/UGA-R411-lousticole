@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- https://colorhunt.co/palette/2650732d95969ad0c2f1fada -->
-    <color name="dark_green">#265073</color>
-    <color name="green">#2D9596</color>
-    <color name="light_green">#9AD0C2</color>
-    <color name="dark">#0b1924</color>
-    <color name="cream">#F1FADA</color>
+    <color name="green">#33cf79</color>
+    <color name="blue">#3583e2</color>
+    <color name="red">#E72929</color>
+    <color name="light_gray">#dcdbd8</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

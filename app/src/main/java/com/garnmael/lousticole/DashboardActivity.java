@@ -26,25 +26,23 @@ public class DashboardActivity extends AppCompatActivity {
         Button notesButton = findViewById(R.id.dashboard_grades_button);
         Button mathsButton = findViewById(R.id.dashboard_math_button);
         Button francaisButton = findViewById(R.id.dashboard_francais_button);
-        Button profilButton = findViewById(R.id.dashboard_settings_button);
+        Button deconnexionButton = findViewById(R.id.dashboard_settings_button);
 
 
         if (user.isAnonyme()) {
             notesButton.setEnabled(false);
-            profilButton.setText("Se connecter");
+            deconnexionButton.setText("Se connecter");
             welcomeText.setText("Bienvenue sur votre tableau de bord, chère anonyme");
         } else {
             welcomeText.setText("Bienvenue sur votre tableau de bord, " + user.getPrenom());
         }
 
-        profilButton.setOnClickListener(new View.OnClickListener() {
+        deconnexionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, ProfileSelectionActivity.class);
-                if (!user.isAnonyme()) {
-                    intent.putExtra(DashboardActivity.USER_KEY, user);
-                }
                 startActivity(intent);
+                finish();
             }
         });
 
