@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.garnmael.lousticole.db.DatabaseClient;
+import com.garnmael.lousticole.model.ExerciceQcm;
 import com.garnmael.lousticole.model.Note;
 import com.garnmael.lousticole.model.TableOperation;
 import com.garnmael.lousticole.model.User;
@@ -24,11 +25,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity {
-    public static final String RESULT_TABLE_KEY = "table_key";
-    public static final String CONTEXT_KEY = "context_key";
-    private DatabaseClient mDb;
+    //corresponds à un objet de type exercice QCM ou TableOperation, selon la matière
+    public static final String RESULT_KEY = "result_key";
 
     public static final String USER_KEY = "user_key";
+    public static final String CONTEXT_KEY = "context_key";
+    public static final String SUBJECT_KEY = "matiere_key";
+    private DatabaseClient mDb;
 
 
     /**
@@ -53,10 +56,10 @@ public class ResultActivity extends AppCompatActivity {
 
                             //récuperation de la table de multiplication
                             Intent resultIntent = result.getData();
-                            TableOperation tableOperation = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
+                            TableOperation tableOperation = resultIntent.getParcelableExtra(RESULT_KEY);
 
                             //mise à jour de l'interface
-                            updateUserInterface(tableOperation.checkAnswers(), tableOperation);
+                            updateUserInterface(tableOperation.checkAnswers(), tableOperation.getNbOperation() - tableOperation.getNbErrors() + "/" + tableOperation.getNbOperation());
                         }
                     }
 
@@ -65,10 +68,10 @@ public class ResultActivity extends AppCompatActivity {
 
                         //récuperation de la table de multiplication
                         Intent resultIntent = result.getData();
-                        TableOperation tableOperation = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
+                        TableOperation tableOperation = resultIntent.getParcelableExtra(RESULT_KEY);
 
                         //mise à jour de l'interface
-                        updateUserInterface(tableOperation.checkAnswers(), tableOperation);
+                        updateUserInterface(tableOperation.checkAnswers(), tableOperation.getNbOperation() - tableOperation.getNbErrors() + "/" + tableOperation.getNbOperation());
                     }
                 }
             }
@@ -84,52 +87,105 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.result);
         Button correctionButton = findViewById(R.id.result_correction_button);
         Button otherButton = findViewById(R.id.result_other_button);
-        Button retourButton = findViewById(R.id.result_retour_button);
+        Button backButton = findViewById(R.id.result_retour_button);
         String context = getIntent().getStringExtra(CONTEXT_KEY);
+        String subject = getIntent().getStringExtra(SUBJECT_KEY);
         User user = getIntent().getParcelableExtra(USER_KEY);
 
 
-        //on initialise tableMultiplication à partir de l'intent
-        TableOperation tableOperation = getIntent().getParcelableExtra(RESULT_TABLE_KEY);
-
-        //indique si l'utilisateur à réussi l'exercice
-        boolean success = tableOperation.checkAnswers();
-
-                //On mets à jour les données de l'interface
-        updateUserInterface(success, tableOperation);
 
 
-        if (context.compareTo("note") == 0) {
-            long note = tableOperation.getNbOperation() - tableOperation.getNbErrors();
-            saveNote(note, user.getId());
+        //cas dans lequel le resultat est celui d'un exercice de math
+        if (subject.compareTo("m")==0) {
+
+            //on initialise tableMultiplication à partir de l'intent
+            TableOperation tableOperation = getIntent().getParcelableExtra(RESULT_KEY);
+
+            //indique si l'utilisateur à réussi l'exercice
+            boolean success = tableOperation.checkAnswers();
+
+            //On mets à jour les données de l'interface
+            updateUserInterface(success, tableOperation.getNbOperation() - tableOperation.getNbErrors() + "/" + tableOperation.getNbOperation());
+
+            if (context.compareTo("graded") == 0) {
+                long note = tableOperation.getNbOperation() - tableOperation.getNbErrors();
+                saveNote(note, user.getId(), "Mathématiques");
+                correctionButton.setEnabled(false);
+            }
+            //mise à jour de l'action du premier bouton : choisir une autre table
+            otherButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ResultActivity.this, MathActivity.class);
+                    intent.putExtra(MathActivity.USER_KEY, user);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    finish();
+                    startActivity(intent);
+                }
+            });
+            //mise à jour de l'action du premier bouton : corriger
+            correctionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ResultActivity.this, TableOperationActivity.class);
+                    intent.putExtra(TableOperationActivity.TABLE_KEY, tableOperation);
+                    intent.putExtra(TableOperationActivity.CONTEXT_KEY, "correction");
+                    intent.putExtra(TableOperationActivity.USER_KEY, user);
+
+                    activityResultLauncher.launch(intent);
+                }
+            });
+        } else if (subject.compareTo("f")== 0) {
             correctionButton.setEnabled(false);
+
+            ExerciceQcm exerciceQcm = getIntent().getParcelableExtra(RESULT_KEY);
+
+            updateUserInterface(exerciceQcm.getNote()>=7, exerciceQcm.getNote()+"/10");
+
+            if (context.compareTo("graded") == 0) {
+
+                saveNote(exerciceQcm.getNote(), user.getId(), "Français");
+                correctionButton.setEnabled(false);
+            }
+
+            //mise à jour de l'action du premier bouton : choisir un autre QCM
+            otherButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ResultActivity.this, FrancaisActivity.class);
+                    intent.putExtra(HistoireActivity.USER_KEY, user);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        } else if (subject.compareTo("h")== 0) {
+            correctionButton.setEnabled(false);
+
+            ExerciceQcm exerciceQcm = getIntent().getParcelableExtra(RESULT_KEY);
+
+            updateUserInterface(exerciceQcm.getNote()>=7, exerciceQcm.getNote()+"/10");
+
+            if (context.compareTo("graded") == 0) {
+
+                saveNote(exerciceQcm.getNote(), user.getId(), "Histoire");
+                correctionButton.setEnabled(false);
+            }
+
+            //mise à jour de l'action du premier bouton : choisir un autre QCM
+            otherButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ResultActivity.this, HistoireActivity.class);
+                    intent.putExtra(HistoireActivity.USER_KEY, user);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
 
-        //mise à jour de l'action du premier bouton : choisir une autre table
-        otherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ResultActivity.this, MathActivity.class);
-                intent.putExtra(MathActivity.USER_KEY, user);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
-        //mise à jour de l'action du premier bouton : corriger
-        correctionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ResultActivity.this, TableOperationActivity.class);
-                intent.putExtra(TableOperationActivity.TABLE_KEY, tableOperation);
-                intent.putExtra(TableOperationActivity.CONTEXT_KEY, "correction");
-                intent.putExtra(TableOperationActivity.USER_KEY, user);
-
-                activityResultLauncher.launch(intent);
-            }
-        });
-
-        retourButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ResultActivity.this, DashboardActivity.class);
@@ -143,9 +199,9 @@ public class ResultActivity extends AppCompatActivity {
     /**
      * permet de mettre à jour les données sur l'interface utilisateur
      * @param success indique si l'utilisateur à réussi l'exercice
-     * @param tableOperation la table de mutliplication de l'exercice
+     * @param message le message principal à afficher sur l'accueil
      */
-    private void updateUserInterface(boolean success, TableOperation tableOperation) {
+    private void updateUserInterface(boolean success, String message) {
 
         //recupération des elements de l'interface
         TextView resultText = findViewById(R.id.result_first_textView);
@@ -161,10 +217,18 @@ public class ResultActivity extends AppCompatActivity {
             //mise à jour des message de l'UI
             resultText.setText("Erreur(s) !!");
         }
-        String text = tableOperation.getNbOperation() - tableOperation.getNbErrors() + "/" + tableOperation.getNbOperation();
+        String text = message;
         noteText.setText(text);
     }
-    private void saveNote(long userNote, long userId) {
+
+
+    /**
+     * permets de sauvegarder une note dans la base de données
+     * @param userNote la note de l'utilisateur
+     * @param userId l'id de l'utilisateur dont on souhaite sauvegarder la note
+     * @param subject la matière de la note
+     */
+    private void saveNote(long userNote, long userId, String subject) {
         /**
          * Création d'une classe asynchrone pour sauvegarder l'utilsiateur
          */
@@ -178,7 +242,7 @@ public class ResultActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
                 String dateStr = dateFormat.format(calendar.getTime());
                 //creer un utilisateur
-                Note note = new Note("mathématiques", userNote, userId, dateStr);
+                Note note = new Note(subject, userNote, userId, dateStr);
                 // adding to database
                 long id = mDb.getAppDatabase()
                         .noteDao()

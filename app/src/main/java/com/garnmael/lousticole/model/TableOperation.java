@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+/**
+ * repprésente la notion d'une table d'opération (+, *, -) complète
+ */
 public class TableOperation implements Parcelable{
 
     private ArrayList<Operation> operationList;

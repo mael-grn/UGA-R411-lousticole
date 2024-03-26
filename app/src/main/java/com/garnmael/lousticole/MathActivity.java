@@ -29,8 +29,14 @@ public class MathActivity extends AppCompatActivity {
     //la table de multiplication selectionnée
     private int tableSelected;
 
+    //l'operateur selectionné par l'eleve. + par défaut
     private char operateurSelected = '+';
 
+    /**
+     * résultat de l'activié table d'opération.
+     * En fonction de la réussite ou non de l'eleve et du contexte, redirige vers la page de
+     * resultat avec un message approprié
+     */
     private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -42,7 +48,7 @@ public class MathActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_CANCELED) {
                         //si l'utilisateur à quitté avec la navigation
                         if (result.getData() == null) {
-                            CharSequence text = "Vous avez quitté sans valider, les réponses de sont pas sauvegardées";
+                            CharSequence text = "Réponses non sauvegardées";
                             int duration = Toast.LENGTH_SHORT;
                             Toast.makeText(MathActivity.this, text, duration).show();
                             //si l'utilisateur à perdu
@@ -54,9 +60,10 @@ public class MathActivity extends AppCompatActivity {
 
                             //on le redirige vers la page appriprié
                             Intent intent = new Intent(MathActivity.this, ResultActivity.class);
-                            intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMult);
+                            intent.putExtra(ResultActivity.RESULT_KEY, tableMult);
                             intent.putExtra(ResultActivity.CONTEXT_KEY, context);
                             intent.putExtra(ResultActivity.USER_KEY, user);
+                            intent.putExtra(ResultActivity.SUBJECT_KEY, "m");
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                             startActivity(intent);
@@ -69,9 +76,10 @@ public class MathActivity extends AppCompatActivity {
                         TableOperation tableMult = resultIntent.getParcelableExtra(RESULT_TABLE_KEY);
 
                         Intent intent = new Intent(MathActivity.this, ResultActivity.class);
-                        intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableMult);
+                        intent.putExtra(ResultActivity.RESULT_KEY, tableMult);
                         intent.putExtra(ResultActivity.CONTEXT_KEY, context);
                         intent.putExtra(ResultActivity.USER_KEY, user);
+                        intent.putExtra(ResultActivity.SUBJECT_KEY, "m");
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(intent);
@@ -88,9 +96,9 @@ public class MathActivity extends AppCompatActivity {
         setContentView(R.layout.table_operation_launcher);
 
         NumberPicker numberPicker = findViewById(R.id.tabMultLaunch_number_picker);
-        Button entrainementButton = findViewById(R.id.tabMultLaunch_train_button);
-        Button exerciceButton = findViewById(R.id.tabMultLaunch_graded_button);
-        Button retourButton = findViewById(R.id.tabMultLaunch_back_button);
+        Button trainingButton = findViewById(R.id.tabMultLaunch_train_button);
+        Button gradedButton = findViewById(R.id.tabMultLaunch_graded_button);
+        Button backButton = findViewById(R.id.tabMultLaunch_back_button);
         Button helpButton = findViewById(R.id.tabMultLaunch_help_button);
         RadioGroup radioGroup = findViewById(R.id.tabMultLaunch_radioGroup);
 
@@ -99,11 +107,12 @@ public class MathActivity extends AppCompatActivity {
 
         User user = getIntent().getParcelableExtra(USER_KEY);
 
+        //desactivation du bouton pour un exercice noté si l'utilisateur n'est pas connecté
         if (user.isAnonyme()) {
-            exerciceButton.setEnabled(false);
+            gradedButton.setEnabled(false);
         }
 
-        retourButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent intent = new Intent(MathActivity.this, DashboardActivity.class);
@@ -118,16 +127,16 @@ public class MathActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MathActivity.this, HelpActivity.class);
                 intent.putExtra(HelpActivity.USER_KEY, user);
-                intent.putExtra(HelpActivity.CONTEXT_KEY, "math");
+                intent.putExtra(HelpActivity.SUBJECT_KEY, "m");
                 startActivity(intent);
             }
         });
 
         //lancement de l'activité de multiplication
-        entrainementButton.setOnClickListener(new View.OnClickListener() {
+        trainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context = "entrainement";
+                context = "training";
                 tableSelected = numberPicker.getValue();
                 RadioButton selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
                 if (selectedRadioButton.getText().toString().compareTo("Addition")==0) {
@@ -136,8 +145,6 @@ public class MathActivity extends AppCompatActivity {
                     operateurSelected = '-';
                 } else if (selectedRadioButton.getText().toString().compareTo("Multiplication")==0) {
                     operateurSelected = '*';
-                } else if (selectedRadioButton.getText().toString().compareTo("Division")==0) {
-                    operateurSelected = '/';
                 }
                 Intent intent = new Intent(MathActivity.this, TableOperationActivity.class);
                 TableOperation tableOperation = new TableOperation(tableSelected, operateurSelected);
@@ -148,10 +155,10 @@ public class MathActivity extends AppCompatActivity {
         });
 
         //lancement de l'activité de multiplication dans le cas ou l'exercice est noté
-        exerciceButton.setOnClickListener(new View.OnClickListener() {
+        gradedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context = "note";
+                context = "graded";
                 tableSelected = numberPicker.getValue();
                 RadioButton selectedRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
                 if (selectedRadioButton.getText().toString().compareTo("Addition")==0) {

@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * représente la notion de note pour un exercice et un utilisateur
+ */
 @Entity(tableName = "note")
 public class Note implements Parcelable {
 

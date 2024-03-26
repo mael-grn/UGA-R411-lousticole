@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.garnmael.lousticole.db.DataBaseInitializer;
 import com.garnmael.lousticole.db.DatabaseClient;
 import com.garnmael.lousticole.model.User;
 
@@ -25,6 +26,10 @@ public class ProfileSelectionActivity extends AppCompatActivity {
 
     public static final String USER_KEY = "user_key";
 
+    /**
+     * traitement du resultat de l'activité de selection de profil déjà existant
+     * Si un profil à été selectionné, alors on connecte l'utilisateur avec ce profil
+     */
     private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -51,25 +56,25 @@ public class ProfileSelectionActivity extends AppCompatActivity {
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        Button validerButton = findViewById(R.id.profile_selection_valider_button);
+        Button validateButton = findViewById(R.id.profile_selection_valider_button);
         Button resetButton = findViewById(R.id.profile_selection_reset_button);
         Button selectUserButton = findViewById(R.id.profile_selection_select_user_button);
 
         //edit text de saisie utilisateur
-        EditText prenomEditText = findViewById(R.id.profile_selection_prenom_editText);
-        EditText nomEditText = findViewById(R.id.profile_selection_nom_editText);
+        EditText nameEditText = findViewById(R.id.profile_selection_prenom_editText);
+        EditText surnameEditText = findViewById(R.id.profile_selection_nom_editText);
 
         //on change le libelle des boutons en fonction de si l'utilisateur à rentré du texte ou non
-        prenomEditText.addTextChangedListener(new TextWatcher() {
+        nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!nomEditText.getText().toString().isEmpty() && !prenomEditText.getText().toString().isEmpty()) {
-                    validerButton.setText("Se connecter / S'enregistrer");
+                if (!surnameEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty()) {
+                    validateButton.setText("Enregistrer mon compte");
                 } else {
-                    validerButton.setText("Continer en anonyme");
+                    validateButton.setText("Continer en anonyme");
                 }
             }
             @Override
@@ -77,16 +82,16 @@ public class ProfileSelectionActivity extends AppCompatActivity {
             }
         });
         //on change le libelle des boutons en fonction de si l'utilisateur à rentré du texte ou non
-        nomEditText.addTextChangedListener(new TextWatcher() {
+        surnameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!nomEditText.getText().toString().isEmpty() && !prenomEditText.getText().toString().isEmpty()) {
-                    validerButton.setText("Se connecter / S'enregistrer");
+                if (!surnameEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty()) {
+                    validateButton.setText("Enregistrer mon compte");
                 } else {
-                    validerButton.setText("Continer en anonyme");
+                    validateButton.setText("Continer en anonyme");
                 }
             }
             @Override
@@ -95,21 +100,22 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         });
 
         //lorsque l'utilisateur souhaite en effet changer d'utilisateur
-        validerButton.setOnClickListener(new View.OnClickListener() {
+        validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onValidateButton();
             }
         });
 
-
+        //bouton permettant de reinitialiser la base de donnée de l'application
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getApplicationContext().deleteDatabase("myLousticole");
-                Intent intent = getIntent();
+                DataBaseInitializer dataBaseInitializer = new DataBaseInitializer(getApplicationContext());
+                dataBaseInitializer.initializeQcm();
+
                 finish();
-                startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Application réinitialisée", Toast.LENGTH_LONG).show();
             }
         });
@@ -190,7 +196,7 @@ public class ProfileSelectionActivity extends AppCompatActivity {
                     saveUser(nom, prenom);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Recuperation du compte", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Récuperation du compte", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
                     intent.putExtra(DashboardActivity.USER_KEY, user);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -219,7 +225,6 @@ public class ProfileSelectionActivity extends AppCompatActivity {
         if (!nom.isEmpty() && !prenom.isEmpty()) {
             getUser(nom, prenom);
         } else {
-            Toast.makeText(getApplicationContext(), "Utilisateur anonyme", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(ProfileSelectionActivity.this, DashboardActivity.class);
             intent.putExtra(DashboardActivity.USER_KEY, new User());
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

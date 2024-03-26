@@ -26,11 +26,11 @@ public class SelectUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_user);
 
-        Button retourButton = findViewById(R.id.select_user_retour_button);
+        Button backButton = findViewById(R.id.select_user_retour_button);
 
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
-        retourButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent();
@@ -42,6 +42,10 @@ public class SelectUserActivity extends AppCompatActivity {
         getUsers();
     }
 
+    /**
+     * permets de récuperer tous les utilisateurs de la base de données et de les afficher
+     * Un clique sur un utilisateur termine cette activité en renvoyant l'utilisateur séléctionné
+     */
     private void getUsers() {
         ///////////////////////
         // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité

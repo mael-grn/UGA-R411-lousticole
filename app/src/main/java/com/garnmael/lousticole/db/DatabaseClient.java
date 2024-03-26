@@ -52,7 +52,7 @@ public class DatabaseClient {
             //
             db.execSQL("INSERT INTO user (nom, prenom) VALUES(\"user\", \"user\");");
             db.execSQL("INSERT INTO note (note, exercice, idUser) VALUES(\"note\", \"note\", \"note\");");
-
+            db.execSQL("INSERT INTO qcm (tag, question, reponse1, reponse2, reponseCorrect) VALUES(\"qcm\", \"qcm\", \"qcm\", \"qcm\", \"qcm\");");
 
         }
     };

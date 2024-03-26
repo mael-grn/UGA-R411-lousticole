@@ -1,35 +1,35 @@
 
 p
-java:S1604"(Make this anonymous inner class a lambda(Ş¡ó¢úÿÿÿÿ8ª”ÅØæ1J$16a5e724-cade-43c2-be15-b016e9813199
+java:S1604#"(Make this anonymous inner class a lambda(Ş¡ó¢úÿÿÿÿ8ª”ÅØæ1J$78abc102-41f8-4c50-80ac-7c6374bc7541
 p
-java:S1604b"(Make this anonymous inner class a lambda(’¨Îèıÿÿÿÿ8«”ÅØæ1J$2e01496a-f1fc-452b-b094-64945a119c26
+java:S1604g"(Make this anonymous inner class a lambda(ÚèÕ±ûÿÿÿÿ8«”ÅØæ1J$79e229e6-3efc-4329-ab94-4cdc4e771017
 k
-java:S1604j"(Make this anonymous inner class a lambda(‚úé¯8«”ÅØæ1J$43804415-09ed-4012-85b5-295c3de6560c
+java:S1604o"(Make this anonymous inner class a lambda(‚úé¯8âòÅØæ1J$57ec08e6-5483-4e43-a59d-0631f8c07ca5
 p
-java:S1604u"(Make this anonymous inner class a lambda(Ö›ÜÄüÿÿÿÿ8âòÅØæ1J$69d562fc-6a1c-44ed-817b-e4ff669d58c2
+java:S1604{"(Make this anonymous inner class a lambda(Ö›ÜÄüÿÿÿÿ8¢ÇˆØç1J$1ed1e077-cad1-410b-ab26-31816ba8e6db
 ‚
-java:S1874#":Remove this use of "getParcelableExtra"; it is deprecated.(¥Šö­ùÿÿÿÿ8Û•ÅØæ1J$86297f99-fdcd-4881-9f93-b1aa6553a317
+java:S1874(":Remove this use of "getParcelableExtra"; it is deprecated.(¥Šö­ùÿÿÿÿ8Û•ÅØæ1J$ae22c121-54d6-4fcf-b9f9-04bb03855065
 Ä
-java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8ê•ÅØæ1J$1e73ecc0-04c0-4300-8bb5-0f87dbb870b1
+java:S1186F"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8ê•ÅØæ1J$e26fbf6b-1dab-4703-b482-c5e49dbf65ee
 É
-java:S1186L"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8ê•ÅØæ1J$64163fda-727b-47fe-be4c-dd6d4cd792dc
+java:S1186Q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8ê•ÅØæ1J$bea54ef6-d2b9-40b3-b8bc-95628e2dfbc9
 Ä
-java:S1186R"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8ï•ÅØæ1J$05d398e6-993d-43d6-bca5-ae6073000efd
+java:S1186W"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(á¬‡İ8ï•ÅØæ1J$215ecb8c-abcc-41d8-8170-30472d6548fe
 É
-java:S1186]"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8ğ•ÅØæ1J$1a51be35-8fe4-4a46-8ffa-25004e7d89f5
+java:S1186b"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(×åó«øÿÿÿÿ8ğ•ÅØæ1J$6e4e06c3-eb06-42f6-831a-d6873ea4149a
 z
-java:S1874ƒ"1Remove this use of "AsyncTask"; it is deprecated.(ÏçÌöüÿÿÿÿ8ü•ÅØæ1J$e6b6c680-ee1c-4f20-a0ed-710529217a42
+java:S1874‰"1Remove this use of "AsyncTask"; it is deprecated.(ÏçÌöüÿÿÿÿ8ü•ÅØæ1J$f16b4067-9d1e-4a10-992b-be1c0b9f3bd9
 “
-java:S1874’"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8–ÅØæ1J$7e7337e8-580c-4cd9-be95-22650fe21d14
+java:S1874˜"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8–ÅØæ1J$16b88db4-1493-467a-88d1-2e2a1f8d4f7a
 y
-java:S1874“"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8‚–ÅØæ1J$3a5929fe-638a-49d8-8108-97e40271f202
+java:S1874™"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8‚–ÅØæ1J$1a26559a-2a45-4858-853d-4e24287f2c59
 x
-java:S1874£"/Remove this use of "execute"; it is deprecated.(£®çÇûÿÿÿÿ8…–ÅØæ1J$809ebb8f-13d8-4b87-a9ec-bd0834074d4d
+java:S1874©"/Remove this use of "execute"; it is deprecated.(£®çÇûÿÿÿÿ8…–ÅØæ1J$34141bb0-3bbe-4600-b568-34fc7327a19b
 u
-java:S1874°"1Remove this use of "AsyncTask"; it is deprecated.(‡ĞÑş8‡–ÅØæ1J$c3988419-5b30-4c04-800d-aed08feababa
+java:S1874¶"1Remove this use of "AsyncTask"; it is deprecated.(‡ĞÑş8‡–ÅØæ1J$d7fefa88-83dd-4b80-a418-c78733de86ae
 “
-java:S1874º"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8‰–ÅØæ1J$86122f00-0ab5-4627-bb30-031ae2626849
+java:S1874À"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ßÁ›ÿÿÿÿÿ8‰–ÅØæ1J$4ddbf11e-a608-448b-b1aa-c6486a749b0c
 y
-java:S1874»"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8Š–ÅØæ1J$a94c889a-c833-4adc-95d4-7404880f22c0
+java:S1874Á"5Remove this use of "onPostExecute"; it is deprecated.(µƒÜ˜8Š–ÅØæ1J$e966fbb7-bdc1-4943-9f99-d9d6426cdf9d
 s
-java:S1874Î"/Remove this use of "execute"; it is deprecated.(¢…èÀ8–ÅØæ1J$5984f5f1-6633-4012-a648-279232fd59ed
+java:S1874Ô"/Remove this use of "execute"; it is deprecated.(¢…èÀ8–ÅØæ1J$9ebc5237-c9c1-42b3-a5a0-b08a1487f55d

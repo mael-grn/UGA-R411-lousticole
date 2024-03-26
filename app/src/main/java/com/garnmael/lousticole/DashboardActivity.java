@@ -22,22 +22,25 @@ public class DashboardActivity extends AppCompatActivity {
 
         User user = getIntent().getParcelableExtra(USER_KEY);
 
+        //les elements de l'interface
         TextView welcomeText = findViewById(R.id.dashboard_welcome_textView);
-        Button notesButton = findViewById(R.id.dashboard_grades_button);
-        Button mathsButton = findViewById(R.id.dashboard_math_button);
+        Button gradesButton = findViewById(R.id.dashboard_grades_button);
+        Button mathButton = findViewById(R.id.dashboard_math_button);
         Button francaisButton = findViewById(R.id.dashboard_francais_button);
-        Button deconnexionButton = findViewById(R.id.dashboard_settings_button);
+        Button histoireButton = findViewById(R.id.dashboard_histoire_button);
+        Button logoutButton = findViewById(R.id.dashboard_settings_button);
 
-
+        //si l'utilisateur est annonyme, desactivation de certaines fonctionnalitées
         if (user.isAnonyme()) {
-            notesButton.setEnabled(false);
-            deconnexionButton.setText("Se connecter");
-            welcomeText.setText("Bienvenue sur votre tableau de bord, chère anonyme");
+            gradesButton.setEnabled(false);
+            logoutButton.setText("Se connecter");
+            welcomeText.setText("Dashboard (anonyme)");
         } else {
-            welcomeText.setText("Bienvenue sur votre tableau de bord, " + user.getPrenom());
+            welcomeText.setText("Dashboard de " + user.getPrenom());
         }
 
-        deconnexionButton.setOnClickListener(new View.OnClickListener() {
+        //action du bouton de deconnexion
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, ProfileSelectionActivity.class);
@@ -46,7 +49,8 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        notesButton.setOnClickListener(new View.OnClickListener() {
+        //action du bouton pour afficher les notes
+        gradesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, NoteActivity.class);
@@ -55,11 +59,32 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        mathsButton.setOnClickListener(new View.OnClickListener() {
+        //action de click sur le bouton d'exercices de math
+        mathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, MathActivity.class);
                 intent.putExtra(MathActivity.USER_KEY, user);
+                startActivity(intent);
+            }
+        });
+
+        //action de click sur le bouton d'exercice de francais
+        francaisButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, FrancaisActivity.class);
+                intent.putExtra(FrancaisActivity.USER_KEY, user);
+                startActivity(intent);
+            }
+        });
+
+        //action de click sur le bouton d'exercice d'histoire
+        histoireButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, HistoireActivity.class);
+                intent.putExtra(HistoireActivity.USER_KEY, user);
                 startActivity(intent);
             }
         });

@@ -27,7 +27,9 @@
         <activity android:name=".HelpActivity"/>
         <activity android:name=".NoteActivity"/>
         <activity android:name=".SelectUserActivity"/>
-
+        <activity android:name=".FrancaisActivity"/>
+        <activity android:name=".QcmActivity"/>
+        <activity android:name=".HistoireActivity"/>
     </application>
 
 </manifest>

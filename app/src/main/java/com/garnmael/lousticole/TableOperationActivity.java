@@ -25,7 +25,7 @@ public class TableOperationActivity extends AppCompatActivity{
 
     public static final String USER_KEY = "user_key";
 
-    private ArrayList<LinearLayout> multiplicationList = new ArrayList<>();
+    private ArrayList<LinearLayout> operationsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +43,13 @@ public class TableOperationActivity extends AppCompatActivity{
         updatePageContent(tableOperation);
         drawContent();
 
-        /**
-         * Corresponds à l'evenement au clique du bouton valider.
-         */
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateUserResponses(tableOperation);
 
                 //traitement des réponses possibles selon le contexte d'utilisation
-                if(context.compareTo("entrainement") == 0) {
+                if(context.compareTo("training") == 0) {
                     Intent intent=new Intent();
                     intent.putExtra(MathActivity.RESULT_TABLE_KEY, tableOperation);
                     if (tableOperation.checkAnswers()) {
@@ -62,14 +59,14 @@ public class TableOperationActivity extends AppCompatActivity{
                     }
                 } else if (context.compareTo("correction")==0) {
                     Intent intent=new Intent();
-                    intent.putExtra(ResultActivity.RESULT_TABLE_KEY, tableOperation);
+                    intent.putExtra(ResultActivity.RESULT_KEY, tableOperation);
 
                     if (tableOperation.checkAnswers()) {
                         setResult(RESULT_OK,intent);
                     } else {
                         setResult(RESULT_CANCELED,intent);
                     }
-                } else if (context.compareTo("note")==0) {
+                } else if (context.compareTo("graded")==0) {
                     Intent intent=new Intent();
                     User user = getIntent().getParcelableExtra(USER_KEY);
                     intent.putExtra(MathActivity.RESULT_TABLE_KEY, tableOperation);
@@ -96,7 +93,7 @@ public class TableOperationActivity extends AppCompatActivity{
      */
     private void drawContent() {
         LinearLayout container = findViewById(R.id.tabMult_table_container);
-        for (LinearLayout multiplication : multiplicationList) {
+        for (LinearLayout multiplication : operationsList) {
             container.addView(multiplication);
         }
     }
@@ -117,7 +114,7 @@ public class TableOperationActivity extends AppCompatActivity{
             if (table.getOperation(i).hasUserResponded()) {
                 reponse.setText(table.getOperation(i).getReponseUtilisateur().toString());
             }
-            multiplicationList.add(container);
+            operationsList.add(container);
         }
     }
 
@@ -126,8 +123,8 @@ public class TableOperationActivity extends AppCompatActivity{
      * @param table correspond à la table à modifier
      */
     private void updateUserResponses(TableOperation table) {
-        for (int i=0; i<multiplicationList.size(); i++) {
-            EditText reponseEdit = multiplicationList.get(i).findViewById(R.id.answer_sample);
+        for (int i = 0; i< operationsList.size(); i++) {
+            EditText reponseEdit = operationsList.get(i).findViewById(R.id.answer_sample);
             String reponse = String.valueOf(reponseEdit.getText());
             if (!reponse.isEmpty()) {
                 table.getOperation(i).repondre(Integer.parseInt(reponse));

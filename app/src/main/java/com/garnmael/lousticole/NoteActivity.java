@@ -28,12 +28,12 @@ public class NoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grades);
 
-        Button retour = findViewById(R.id.grades_retour_button);
+        Button backButton = findViewById(R.id.grades_retour_button);
         User user = getIntent().getParcelableExtra(USER_KEY);
         mDb = DatabaseClient.getInstance(getApplicationContext());
 
 
-        retour.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NoteActivity.this, DashboardActivity.class);
@@ -48,6 +48,10 @@ public class NoteActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * permets de mettre à jours l'affichage des notes en faisant un appel à la base de données
+     * @param userId corresponds à l'id de l'utilisateur dont on souhaite récuperer les notes
+     */
     private void updateNotesContent(long userId) {
         ///////////////////////
         // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité

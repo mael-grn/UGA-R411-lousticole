@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+/**
+ * représente la notion d'une seule opération
+ */
 public class Operation implements Parcelable {
     private int nombre1;
     private int nombre2;
