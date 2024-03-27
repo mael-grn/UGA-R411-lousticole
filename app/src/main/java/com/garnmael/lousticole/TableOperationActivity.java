@@ -25,11 +25,18 @@ public class TableOperationActivity extends AppCompatActivity{
 
     public static final String USER_KEY = "user_key";
 
+    public static final String STATE_TABLE = "state_table";
+
+
     private ArrayList<LinearLayout> operationsList = new ArrayList<>();
+
+    private TableOperation tableOperation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         // On charge le XML pour créer l'arbre graphique
         setContentView(R.layout.table_operation);
@@ -38,8 +45,15 @@ public class TableOperationActivity extends AppCompatActivity{
         //La table de multiplication peut etre utilisée selon différents contextes (normal, correction, entrainement) context permet de recupérer le contexte d'utilisation
         String context = getIntent().getStringExtra(CONTEXT_KEY);
 
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            tableOperation = savedInstanceState.getParcelable(STATE_TABLE);
+        } else {
+            tableOperation = getIntent().getParcelableExtra(TABLE_KEY);
+        }
+
+
         //On recupere notre table de multiplication, on mets à jour notre liste de multiplication et on l'affiche
-        TableOperation tableOperation = getIntent().getParcelableExtra(TABLE_KEY);
         updatePageContent(tableOperation);
         drawContent();
 
@@ -93,6 +107,7 @@ public class TableOperationActivity extends AppCompatActivity{
      */
     private void drawContent() {
         LinearLayout container = findViewById(R.id.tabMult_table_container);
+        container.removeAllViews();
         for (LinearLayout multiplication : operationsList) {
             container.addView(multiplication);
         }
@@ -110,9 +125,12 @@ public class TableOperationActivity extends AppCompatActivity{
             EditText reponse = container.findViewById(R.id.answer_sample);
 
             question.setText(table.getOperation(i).getQuestion());
-
             if (table.getOperation(i).hasUserResponded()) {
+                //pour une raison totalement inconnue, le setText ne fonctionne pas UNIQUEMENT dans le cas d'un "onsavedinstance".
+                //ce code fonctionne très bien quand on quitte l'activité et qu'on renviens dessus (cas d'une correction par exemple)
+                //utilisation d'un setInt pour la démo, pour montrer que la sauvegarde des réponse fonctionne au passage en paysage (qui lui fonctionne très bien par contre)
                 reponse.setText(table.getOperation(i).getReponseUtilisateur().toString());
+                reponse.setHint(table.getOperation(i).getReponseUtilisateur().toString());
             }
             operationsList.add(container);
         }
@@ -130,6 +148,17 @@ public class TableOperationActivity extends AppCompatActivity{
                 table.getOperation(i).repondre(Integer.parseInt(reponse));
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        updateUserResponses(tableOperation);
+        // Save the user's current game state
+        savedInstanceState.putParcelable(STATE_TABLE, tableOperation);
+
+        // Always call the superclass so it can save
+        // the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 }

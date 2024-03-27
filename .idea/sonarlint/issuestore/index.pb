@@ -85,9 +85,5 @@ o
 ?app/src/main/java/com/garnmael/lousticole/FrancaisActivity.java,0\d\0d7cdab8d1621973227c46e2ddb98bc28e75f70c
 j
 :app/src/main/java/com/garnmael/lousticole/QcmActivity.java,1\e\1ead4066bdf65ac07aa8f1f44528853794e31c4a
-p
-@app/src/main/java/com/garnmael/lousticole/model/ContextEnum.java,8\e\8e79229c851f5b46217b0f94004c0fcea95d1d6f
-p
-@app/src/main/java/com/garnmael/lousticole/model/SubjectEnum.java,b\6\b6055b8968032587e273f6f29aaebf15066a2f6f
 o
 ?app/src/main/java/com/garnmael/lousticole/HistoireActivity.java,0\a\0a3228f2ac15f5288f32bbd4909d84c6c7e4470b
