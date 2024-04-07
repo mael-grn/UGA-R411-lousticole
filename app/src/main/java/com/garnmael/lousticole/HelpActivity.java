@@ -50,7 +50,18 @@ public class HelpActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(HelpActivity.this, FrancaisActivity.class);
-                    intent.putExtra(MathActivity.USER_KEY, user);
+                    intent.putExtra(FrancaisActivity.USER_KEY, user);
+                    startActivity(intent);
+                }
+            });
+        } else if (subject.compareTo("h") == 0) {
+            content.setText("C'est comme un petit jeu où tu réponds à des questions sur l'histoire. Tu as deux options : faire un entraînement pour t'améliorer ou faire un QCM noté. Pour avoir une note, tu dois te connecter avant de commencer le QCM. Ensuite, tu pourras voir ta note sur la page \"note\" après avoir terminé. Amuse-toi bien à jouer avec les mots !");
+            container.addView(content);
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(HelpActivity.this, HistoireActivity.class);
+                    intent.putExtra(HistoireActivity.USER_KEY, user);
                     startActivity(intent);
                 }
             });

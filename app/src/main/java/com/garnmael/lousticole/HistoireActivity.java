@@ -30,51 +30,11 @@ public class HistoireActivity extends AppCompatActivity {
 
     public static final String CONTEXT_KEY = "context_key";
 
-    private DatabaseClient mDb;
-
-    /**
-     * Appelé au resultat de l'activité Qcm, de type francais.
-     * En fonction du résultat de l'utilisateur, le redirige vers la page de resultat avec un message
-     * approprié
-     */
-    private ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-
-                //resultat de l'activité de multiplication.
-                //selon le resultat, on decidera d'envoyer l'utilisateur vers la page de resultat
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == RESULT_CANCELED) {
-                        //si l'utilisateur à quitté avec la navigation
-                        if (result.getData() == null) {
-                            Toast.makeText(getApplicationContext(), "Vous avez quitté sans valider, les réponses de sont pas sauvegardées", Toast.LENGTH_LONG).show();
-                        }
-                        //si l'utilisateur a gagné, on le redirige vers la page de resultat
-                    } else if (result.getResultCode() == RESULT_OK) {
-                        Intent resultIntent = result.getData();
-
-                        ExerciceQcm exerciceQcm = resultIntent.getParcelableExtra(QCM_KEY);
-                        String context = resultIntent.getStringExtra(CONTEXT_KEY);
-                        User user = getIntent().getParcelableExtra(USER_KEY);
-                        Intent intent = new Intent(HistoireActivity.this, ResultActivity.class);
-                        intent.putExtra(ResultActivity.RESULT_KEY, exerciceQcm);
-                        intent.putExtra(ResultActivity.CONTEXT_KEY, context);
-                        intent.putExtra(ResultActivity.USER_KEY, user);
-                        intent.putExtra(ResultActivity.SUBJECT_KEY, "h");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                        startActivity(intent);
-                    }
-                }
-            }
-    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qcm_launcher);
-        mDb = DatabaseClient.getInstance(getApplicationContext());
         User user = getIntent().getParcelableExtra(USER_KEY);
 
         //elements d'interface
@@ -93,7 +53,7 @@ public class HistoireActivity extends AppCompatActivity {
         trainingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getQcm("training");
+                Toast.makeText(getApplicationContext(), "Bientôt disponible !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -101,7 +61,7 @@ public class HistoireActivity extends AppCompatActivity {
         gradedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getQcm("graded");
+                Toast.makeText(getApplicationContext(), "Bientôt disponible !", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -125,47 +85,5 @@ public class HistoireActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-
-    /**
-     * Permet de recuperer les QCMs dans la base de données pour la matière francais, puis lance la
-     * page d'exercice
-     * @param context corresponds au contexte de l'exercice. Peut etre "graded" ou "training"
-     */
-    private void getQcm(String context) {
-        ///////////////////////
-        // Classe asynchrone permettant de récupérer des taches et de mettre à jour le listView de l'activité
-
-        class GetQcm extends AsyncTask<Void, Void, List<Qcm>> {
-
-            @Override
-            protected List<Qcm> doInBackground(Void... voids) {
-                return mDb.getAppDatabase()
-                        .qcmDao()
-                        .getQcmFromTag("histoire");
-            }
-
-            @Override
-            protected void onPostExecute(List<Qcm> qcmList) {
-                super.onPostExecute(qcmList);
-                System.out.println(qcmList.size()+"af,aelkgfnklazflkaegklaeznglkagjazngleanglkjegkjle");
-                Collections.shuffle(qcmList);
-                ExerciceQcm exerciceQcm = new ExerciceQcm(qcmList, "histoire");
-                User user = getIntent().getParcelableExtra(USER_KEY);
-
-                Intent intent = new Intent(HistoireActivity.this, QcmActivity.class);
-                intent.putExtra(QcmActivity.QCM_KEY, exerciceQcm);
-                intent.putExtra(QcmActivity.USER_KEY, user);
-                intent.putExtra(QcmActivity.CONTEXT_KEY, context);
-                intent.putExtra(QcmActivity.SUBJECT_KEY, "h");
-                activityResultLauncher.launch(intent);
-            }
-        }
-        //////////////////////////
-        // IMPORTANT bien penser à executer la demande asynchrone
-        // Création d'un objet de type GetTasks et execution de la demande asynchrone
-        GetQcm gq = new GetQcm();
-        gq.execute();
     }
 }
